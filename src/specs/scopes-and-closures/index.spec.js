@@ -31,11 +31,12 @@ describe('functional scope - scopes and closures', () => {
         // make sure the MyMathLibrary.doMath() method has been called (with a proper parameter value)
         // make sure the addSix() and reduceFive() functions are NOT available in the global scope
 
+        let MyNumber = 9;
+
         let MyMathLibrary = {
             doMath: function(arg) {
-                MyNumber = addSix(arg); // WARNING: Do not modify this line!
-            }
-        }
+                arg = reduceFive(arg);
+                MyNumber = addSix(arg); // WARNING: Do not modify this line!  
 
         function addSix(arg) {
             return arg + 6;
@@ -45,13 +46,16 @@ describe('functional scope - scopes and closures', () => {
             return arg - 5;
         }
 
+            }
+        }
+
 
         spyOnDoMath = jest.spyOn(MyMathLibrary, "doMath");
 
         // testing initial value
         expect(MyNumber).toEqual(9);
 
-        /* ... */
+        MyMathLibrary.doMath(MyNumber);
 
         expect(spyOnDoMath).toHaveBeenCalled();
 
