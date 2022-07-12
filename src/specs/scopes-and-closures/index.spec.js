@@ -71,6 +71,8 @@ describe('functional scope - scopes and closures', () => {
         // make sure the MyMathLibrary.doMath() method has NOT been called within the global scope
         // call the doSomeMoreMath() function but make sure it is not poluting the global scope (use IIFE)
 
+        MyNumber = 10;
+
         let MyMathLibrary = {
             doMath: function(arg) {
                 MyNumber = addSix(arg);
@@ -81,13 +83,13 @@ describe('functional scope - scopes and closures', () => {
             return arg + 6;
         }
 
-        function doSomeMoreMath(){
+        (function doSomeMoreMath(){
             MyMathLibrary.doMath(MyNumber)
-        }
+        })()
 
         spyOnDoMath = jest.spyOn(MyMathLibrary, "doMath");
 
-        doSomeMoreMath();
+        //doSomeMoreMath();
 
         expect(spyOnDoMath).not.toHaveBeenCalled();
 
