@@ -3,11 +3,12 @@ describe('global scope - scopes and closures', () => {
         // declare a variable MyNumber of type number, that should be available in the global scope (outside the MyMathLibrary object)
         // update the multiplyByTwo() method code to multiply the value of MyNumber by 2
         // make sure the MyMathLibrary.multiplyByTwo() method has been called
-
+        
+        let MyNumber = 5;
         let MyMathLibrary = {
             multiplyByTwo: () => {
-                /* ... */
-                return;
+                MyNumber = MyNumber * 2;
+                return ;
             }
         }
 
@@ -15,7 +16,7 @@ describe('global scope - scopes and closures', () => {
 
         expect(MyNumber).toEqual(5);
 
-        /* ... */
+        MyMathLibrary.multiplyByTwo();
 
         expect(spyOnMultiplyByTwo).toHaveBeenCalled();
         expect(MyNumber).toEqual(10);
